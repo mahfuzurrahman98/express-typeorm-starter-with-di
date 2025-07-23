@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Welcome to IntoProject</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #f2f2f2;
+            }
+            table {
+                border-spacing: 0;
+                font-family: Arial, sans-serif;
+                color: #333;
+            }
+            img {
+                border: 0;
+            }
+            .button {
+                background-color: #4caf50 !important;
+                color: #ffffff !important;
+                text-decoration: none;
+                padding: 10px 20px;
+                display: inline-block;
+                border-radius: 4px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#f2f2f2">
+            <tr>
+                <td align="center">
+                    <table
+                        width="100%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="max-width: 450px; background-color: #ffffff; margin: 0 auto"
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                bgcolor="#4CAF50"
+                                style="padding: 20px; text-align: center; color: #ffffff"
+                            >
+                                <h1 style="margin: 0; font-size: 24px">Welcome to IntoProject!</h1>
+                            </td>
+                        </tr>
+
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 20px">
+                                <p style="margin: 0 0 15px 0">Hello <%= name %>,</p>
+                                <p style="margin: 0 0 15px 0">
+                                    Thank you for joining IntoProject! Your account has been
+                                    successfully created and is now ready to use.
+                                </p>
+
+                                <table
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    width="100%"
+                                    style="
+                                        margin-top: 20px;
+                                        background-color: #ffffff;
+                                        border-left: 4px solid #4caf50;
+                                        padding: 15px;
+                                    "
+                                >
+                                    <tr>
+                                        <td style="padding: 10px 0">
+                                            <strong>Company:</strong> <%= name %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0">
+                                            <strong>Account Email:</strong> <%= email %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px 0">
+                                            <strong>Registration Date:</strong> <%= new
+                                            Date().toLocaleDateString() %>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="margin: 20px 0">With your new account, you can:</p>
+
+                                <ul style="margin: 0 0 20px 0; padding-left: 20px">
+                                    <li style="margin-bottom: 10px">Create and manage projects</li>
+                                    <li style="margin-bottom: 10px">
+                                        Invite team members to collaborate
+                                    </li>
+                                    <li style="margin-bottom: 10px">
+                                        Track progress and manage tasks
+                                    </li>
+                                    <li style="margin-bottom: 10px">
+                                        Access all our platform features
+                                    </li>
+                                </ul>
+
+                                <p style="text-align: center; margin: 25px 0">
+                                    <a href="<%= dashboardUrl %>" class="button">Go to Dashboard</a>
+                                </p>
+
+                                <p style="margin: 20px 0 0 0">
+                                    If you have any questions or need assistance, our support team
+                                    is always here to help.
+                                </p>
+                                <p style="margin: 20px 0 0 0">
+                                    We're excited to have you on board!
+                                </p>
+                                <p style="margin: 20px 0 0 0">
+                                    Best regards,<br />The IntoProject Team
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td align="center" style="padding: 10px; font-size: 12px; color: #777">
+                                <p style="margin: 0">
+                                    &copy; <%= new Date().getFullYear() %> IntoProject. All rights
+                                    reserved.
+                                </p>
+                                <p style="margin: 0">
+                                    This is an automated email, please do not reply.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
