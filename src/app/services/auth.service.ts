@@ -3,7 +3,7 @@ import { compare } from 'bcrypt';
 import { UserRepository } from '@/app/repositories/user.repository';
 import { TokenService } from '@/app/services/token.service';
 import { ReqUserCompany, RequestUser } from '@/app/interfaces/auth.interface';
-import { UserStatus } from '@/app/enums/user.enums';
+import { UserStatus } from '@/app/enums/user.enum';
 import { CustomError } from '@/utils/custom-error';
 import { SigninRequestDTO } from '@/app/dtos/auth.dto';
 
