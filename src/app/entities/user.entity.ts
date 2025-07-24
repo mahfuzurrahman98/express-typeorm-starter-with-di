@@ -5,7 +5,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
 } from 'typeorm';
-import { UserRole, UserStatus } from '@/app/enums/user.enums';
+import { UserRole, UserStatus } from '@/app/enums/user.enum';
 import { UserSettings } from '@/app/interfaces/user.interface';
 
 @Entity('users')
@@ -13,8 +13,8 @@ export class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ type: 'varchar', nullable: true })
-    firstName: string | null;
+    @Column({ type: 'varchar' })
+    firstName: string;
 
     @Column({ type: 'varchar', nullable: true })
     lastName: string | null;
