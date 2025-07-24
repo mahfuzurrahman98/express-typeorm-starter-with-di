@@ -4,10 +4,7 @@ import {
     Column,
     CreateDateColumn,
     UpdateDateColumn,
-    ManyToOne,
-    JoinColumn,
 } from 'typeorm';
-import { User } from './user.entity';
 
 @Entity('categories')
 export class Category {
@@ -16,13 +13,6 @@ export class Category {
 
     @Column({ type: 'varchar' })
     name: string;
-
-    @Column({ type: 'uuid' })
-    userId: string;
-
-    @ManyToOne(() => User, (user) => user.id)
-    @JoinColumn({ name: 'userId' })
-    user: User;
 
     @CreateDateColumn({ type: 'timestamptz' })
     createdAt: Date;
