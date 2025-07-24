@@ -1,4 +1,4 @@
-import { UserRole, UserStatus } from '@/app/enums/user.enums';
+import { UserRole, UserStatus } from '@/app/enums/user.enum';
 import { UserSettings } from '@/app/interfaces/user.interface';
 
 export interface ReqUserCompany {
