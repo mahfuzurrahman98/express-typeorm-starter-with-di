@@ -17,7 +17,7 @@ import { CompanyMembership } from '@/app/entities/company-membership.entity';
 import { faker } from '@faker-js/faker';
 import { hash } from 'bcrypt';
 import { CompanyStatus } from '@/app/enums/company.enums';
-import { UserRole, UserStatus } from '@/app/enums/user.enums';
+import { UserRole, UserStatus } from '@/app/enums/user.enum';
 import countries from '@/lib/data/countries.json';
 
 function generateSlug(companyName: string): string {
