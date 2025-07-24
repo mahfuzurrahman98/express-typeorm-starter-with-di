@@ -57,22 +57,13 @@ export class AuthService {
 
             let userCompany: ReqUserCompany | undefined = undefined;
 
-            if (user.companyMembership && user.companyMembership.company) {
-                userCompany = {
-                    id: user.companyMembership.company.id,
-                    name: user.companyMembership.company.name,
-                    slug: user.companyMembership.company.slug,
-                };
-            }
-
+          
             const reqUser: RequestUser = {
                 id: user.id,
                 email: user.email,
                 firstName: user.firstName || '',
                 lastName: user.lastName || undefined,
-                phone: user.phone || undefined,
                 systemRole: user.systemRole,
-                designation: user.designation || undefined,
                 company: userCompany,
                 status: user.status,
                 settings: user.settings || undefined,
@@ -105,13 +96,7 @@ export class AuthService {
                 throw new CustomError(401, 'Unauthorized: User not found');
             }
             let userCompany: ReqUserCompany | undefined = undefined;
-            if (user.companyMembership && user.companyMembership.company) {
-                userCompany = {
-                    id: user.companyMembership.company.id,
-                    name: user.companyMembership.company.name,
-                    slug: user.companyMembership.company.slug,
-                };
-            }
+   
             if (user.status === UserStatus.INACTIVE) {
                 throw new CustomError(403, 'Your account is deactivated');
             }
@@ -123,9 +108,7 @@ export class AuthService {
                 email: user.email,
                 firstName: user.firstName || '',
                 lastName: user.lastName || undefined,
-                phone: user.phone || undefined,
                 systemRole: user.systemRole,
-                designation: user.designation || undefined,
                 company: userCompany,
                 status: user.status,
                 settings: user.settings || undefined,

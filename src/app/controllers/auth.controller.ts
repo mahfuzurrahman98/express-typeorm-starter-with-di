@@ -8,6 +8,10 @@ import { AuthService } from '@/app/services/auth.service';
 import { autoInjectable } from 'tsyringe';
 import { formatError } from '@/utils/helpers/error-formatter';
 import { SigninRequestDTO, SigninResponseDTO } from '@/app/dtos/auth.dto';
+import { APIResponseDTO } from '@/app/dtos/common.dto';
+
+type AuthSigninResponseDTO = APIResponseDTO<{ accessToken: string; user: RequestUser }>;
+type AuthRefreshTokenResponseDTO = APIResponseDTO<{ accessToken: string; user: RequestUser }>;
 
 @autoInjectable()
 export class AuthController {
@@ -37,7 +41,7 @@ export class AuthController {
      */
     signin = async (
         request: Request<{}, {}, SigninRequestDTO>,
-        response: Response<SigninResponseDTO>,
+        response: Response<AuthSigninResponseDTO>,
         next: NextFunction,
     ) => {
         try {
@@ -70,7 +74,7 @@ export class AuthController {
      */
     refreshToken = async (
         request: Request,
-        response: Response<SigninResponseDTO>,
+        response: Response<AuthRefreshTokenResponseDTO>,
         next: NextFunction,
     ) => {
         try {
@@ -99,7 +103,7 @@ export class AuthController {
      * @param request - Express request
      * @param response - Express response
      * @param next - Express next middleware function
-     * @returns 200 with logout confirmation, calls next with error on failure
+     * @returns 200 with signout confirmation, calls next with error on failure
      */
     signout = async (request: Request, response: Response, next: NextFunction) => {
         try {

@@ -1,4 +1,4 @@
-export interface ApiResponseDTO<T = any> {
+export interface APIResponseDTO<T = any> {
     message: string;
     data: T;
 }

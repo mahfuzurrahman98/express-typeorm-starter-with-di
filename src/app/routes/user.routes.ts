@@ -17,9 +17,9 @@ router.use(
 const userController = container.resolve(UserController);
 
 // Get user profile
-router.get('/:id/profile', userController.getUserProfile);
+router.get('/:id/profile', userController.retrieve);
 
 // Update user profile
-router.put('/:id/profile', userController.updateUserProfile);
+router.put('/:id/profile', userController.update);
 
 export default router;

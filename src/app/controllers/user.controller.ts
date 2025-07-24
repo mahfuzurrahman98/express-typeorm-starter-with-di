@@ -27,7 +27,7 @@ export class UserController {
      * @param next - Express next middleware function
      * @returns 200 with user profile on success, calls next with error on failure
      */
-    getUserProfile = async (
+    retrieve = async (
         request: Request<{ id: string }>,
         response: Response<UserProfileResponseDTO>,
         next: NextFunction,
@@ -60,7 +60,7 @@ export class UserController {
      * @param next - Express next middleware function
      * @returns 200 with updated user profile on success, calls next with error on failure
      */
-    updateUserProfile = async (
+    update = async (
         request: Request<{ id: string }, {}, UserProfileSettingsRequestDTO>,
         response: Response<UserProfileResponseDTO>,
         next: NextFunction,
