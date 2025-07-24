@@ -1,18 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import { autoInjectable } from 'tsyringe';
 import { PostService } from '@/app/services/post.service';
-import { CreatePostRequestDTO, UpdatePostRequestDTO } from '@/app/dtos/post.dto';
-import { APIResponseDTO } from '@/app/dtos/common.dto';
-import { Post } from '@/app/entities/post.entity';
+import {
+    CreatePostRequestDTO,
+    CreatePostResponseDTO,
+    ListPostResponseDTO,
+    RetrievePostResponseDTO,
+    UpdatePostRequestDTO,
+    UpdatePostResponseDTO,
+} from '@/app/dtos/post.dto';
 
-type CreatePostResponseDTO = APIResponseDTO<{ post: Post }>;
-type RetrievePostResponseDTO = APIResponseDTO<{ post: Post }>;
-type ListPostResponseDTO = APIResponseDTO<{ posts: Post[] }>;
-type UpdatePostResponseDTO = APIResponseDTO<{ post: Post }>;
-type DeletePostResponseDTO = APIResponseDTO<undefined>;
 import { createPostSchema, updatePostSchema } from '@/app/schemas/post.schema';
 import { formatError } from '@/utils/helpers/error-formatter';
 import { RequestUser } from '@/app/interfaces/auth.interface';
+import { PostListQueryParams, PostWithDetails } from '@/app/interfaces/post.interface';
 
 @autoInjectable()
 export class PostController {
@@ -24,11 +25,31 @@ export class PostController {
         next: NextFunction,
     ) => {
         try {
-            const { id } = request.user as RequestUser;
+            const user = request.user as RequestUser;
             const data: CreatePostRequestDTO = createPostSchema.parse(request.body);
-            const post = await this.postService.createPost(id, data);
-            response.status(201).json({ message: 'Post created successfully', data: { post } });
-        } catch (error) {
+            const post = await this.postService.createPost({ user, data });
+            const formattedPost: PostWithDetails = {
+                id: post.id,
+                title: post.title,
+                content: post.content,
+                tags: post.tags,
+                category: {
+                    id: post.category.id,
+                    name: post.category.name,
+                },
+                user: {
+                    id: post.user.id,
+                    email: post.user.email,
+                    firstName: post.user.firstName,
+                    lastName: post.user.lastName || undefined,
+                },
+                createdAt: post.createdAt,
+                updatedAt: post.updatedAt,
+            };
+            response
+                .status(201)
+                .json({ message: 'Post created successfully', data: { post: formattedPost } });
+        } catch (error: any) {
             next(formatError(error));
         }
     };
@@ -39,23 +60,31 @@ export class PostController {
         next: NextFunction,
     ) => {
         try {
+            const user = request.user as RequestUser;
             const { id } = request.params;
-            const post = await this.postService.getPostById(id);
+            const post = await this.postService.getPostById({ user, id });
             response.status(200).json({ message: 'Post retrieved successfully', data: { post } });
-        } catch (error) {
+        } catch (error: any) {
             next(formatError(error));
         }
     };
 
     list = async (
-        request: Request,
+        request: Request<{}, {}, {}, PostListQueryParams>,
         response: Response<ListPostResponseDTO>,
         next: NextFunction,
     ) => {
         try {
-            const posts = await this.postService.getAllPosts();
-            response.status(200).json({ message: 'Posts retrieved successfully', data: { posts } });
-        } catch (error) {
+            const user = request.user as RequestUser;
+            const { posts, meta } = await this.postService.getAllPosts({
+                user,
+                queryParams: request.query,
+            });
+
+            response
+                .status(200)
+                .json({ message: 'Posts retrieved successfully', data: { posts, meta } });
+        } catch (error: any) {
             next(formatError(error));
         }
     };
@@ -66,11 +95,12 @@ export class PostController {
         next: NextFunction,
     ) => {
         try {
+            const user = request.user as RequestUser;
             const { id } = request.params;
             const data: UpdatePostRequestDTO = updatePostSchema.parse(request.body);
-            const post = await this.postService.updatePost(id, data);
+            const post = await this.postService.updatePost({ user, id, data });
             response.status(200).json({ message: 'Post updated successfully', data: { post } });
-        } catch (error) {
+        } catch (error: any) {
             next(formatError(error));
         }
     };
@@ -81,10 +111,11 @@ export class PostController {
         next: NextFunction,
     ) => {
         try {
+            const user = request.user as RequestUser;
             const { id } = request.params;
-            await this.postService.deletePost(id);
+            await this.postService.deletePost({ user, id });
             response.status(200).json({ message: 'Post deleted successfully' });
-        } catch (error) {
+        } catch (error: any) {
             next(formatError(error));
         }
     };
