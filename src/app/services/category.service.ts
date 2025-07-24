@@ -3,41 +3,60 @@ import { CategoryRepository } from '@/app/repositories/category.repository';
 import { CreateCategoryRequestDTO, UpdateCategoryRequestDTO } from '@/app/dtos/category.dto';
 import { Category } from '@/app/entities/category.entity';
 import { CustomError } from '@/utils/custom-error';
-import { RequestUser } from '@/app/interfaces/auth.interface';
 
 @autoInjectable()
 export class CategoryService {
     constructor(private categoryRepository: CategoryRepository) {}
 
-    async createCategory(userId: string, data: CreateCategoryRequestDTO): Promise<Category> {
+    async createCategory(data: CreateCategoryRequestDTO): Promise<Category> {
         try {
-            const category = this.categoryRepository.create({ ...data, userId });
+            const category = this.categoryRepository.create(data);
             return await this.categoryRepository.save(category);
         } catch (error: any) {
             throw new CustomError(500, `[CategoryService] ${error.message}`);
         }
     }
 
-    async getCategoryById(id: string): Promise<Category | null> {
+    async getCategoryById(id: string): Promise<Category> {
         try {
-            return await this.categoryRepository.findOne({ where: { id } });
+            const category: Category | null = await this.categoryRepository.findOne({
+                where: { id },
+            });
+            if (!category) {
+                throw new CustomError(404, 'Category not found');
+            }
+            return category;
         } catch (error: any) {
             throw new CustomError(500, `[CategoryService] ${error.message}`);
         }
     }
 
-    async getAllCategories(): Promise<Category[]> {
+    async getAllCategories(queryParams?: { name?: string }): Promise<Category[]> {
         try {
-            return await this.categoryRepository.find();
+            const query = this.categoryRepository.createQueryBuilder('category');
+
+            if (queryParams?.name) {
+                query.andWhere('category.name ILIKE :name', { name: `%${queryParams.name}%` });
+            }
+
+            const categories = await query.orderBy('category.createdAt', 'DESC').getMany();
+            return categories;
         } catch (error: any) {
             throw new CustomError(500, `[CategoryService] ${error.message}`);
         }
     }
 
-    async updateCategory(id: string, data: UpdateCategoryRequestDTO): Promise<Category | null> {
+    async updateCategory({
+        id,
+        data,
+    }: {
+        id: string;
+        data: UpdateCategoryRequestDTO;
+    }): Promise<Category> {
         try {
-            await this.categoryRepository.update(id, data);
-            return await this.getCategoryById(id);
+            const category = await this.getCategoryById(id);
+            Object.assign(category, data);
+            return await this.categoryRepository.save(category);
         } catch (error: any) {
             throw new CustomError(500, `[CategoryService] ${error.message}`);
         }
@@ -45,6 +64,7 @@ export class CategoryService {
 
     async deleteCategory(id: string): Promise<void> {
         try {
+            const category = await this.getCategoryById(id);
             await this.categoryRepository.delete(id);
         } catch (error: any) {
             throw new CustomError(500, `[CategoryService] ${error.message}`);
