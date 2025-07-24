@@ -3,16 +3,12 @@ import { container } from 'tsyringe';
 import { requireSystemRole } from '@/app/middlewares/role.middleware';
 import { requireActiveUser, requireAuth } from '@/app/middlewares/auth.middleware';
 import { UserController } from '@/app/controllers/user.controller';
-import { UserRole } from '@/app/enums/user.enums';
+import { UserRole } from '@/app/enums/user.enum';
 
 const router: Router = Router();
 
 // All user routes require authentication
-router.use(
-    requireAuth,
-    requireActiveUser,
-    requireSystemRole([UserRole.ADMIN, UserRole.VENDOR, UserRole.MANAGER, UserRole.MEMBER]),
-);
+router.use(requireAuth, requireActiveUser, requireSystemRole([UserRole.ADMIN, UserRole.USER]));
 
 const userController = container.resolve(UserController);
 
