@@ -11,7 +11,7 @@ export class FileService {
      * @param {string} folder - The folder name for the storage path
      */
     constructor(folder: string) {
-        this.storagePath = `${__dirname}/../../storage/${folder}`;
+        this.storagePath = `${__dirname}/../../../storage/${folder}`; // `storage` directory on the root
     }
 
     /**

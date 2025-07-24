@@ -11,8 +11,3 @@ export enum UserStatus {
     INACTIVE = 'inactive',
     SUSPENDED = 'suspended',
 }
-
-export enum UserInitiator {
-    CLIENT = 'client',
-    SUPPLIER = 'supplier',
-}

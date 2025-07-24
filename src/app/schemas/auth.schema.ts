@@ -1,4 +1,4 @@
-import { object, string, infer as zInfer } from 'zod';
+import { object, string } from 'zod';
 
 export const signinSchema = object({
     email: string().trim().email('Please enter a valid email'),

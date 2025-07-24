@@ -6,8 +6,6 @@ import ejs from 'ejs';
 import http from 'http';
 import router from '@/app/routes';
 import { appDataSource } from '@/app/data-source';
-import { Socket, Server as SocketServer } from 'socket.io';
-import { SocketService } from '@/app/services/socket.service';
 import { CustomError } from '@/utils/custom-error';
 
 const app: Express = express();
@@ -43,10 +41,6 @@ export async function startServer(): Promise<Express> {
     const APP_DEBUG = Boolean(process.env.APP_DEBUG || 'false');
     const FORCE_SHOW_ERROR = process.env.FORCE_SHOW_ERROR === 'true';
     const showError = APP_DEBUG || FORCE_SHOW_ERROR;
-
-    // setupContainer();
-
-    // Dynamically import routes after the container is configured
 
     // index route
     app.get('/', (request: Request, response: Response) => {
@@ -100,18 +94,6 @@ export async function startServer(): Promise<Express> {
     // Start the server only after DB is ready
     const PORT = process.env.PORT || 8001;
     const server = http.createServer(app);
-    const io = new SocketServer(server, {
-        cors: {
-            origin: '*',
-            methods: ['GET', 'POST'],
-        },
-    });
-
-    const socketService = new SocketService(io); // Initialize the socket service
-
-    io.on('connection', (socket: Socket) => {
-        socketService.handleConnection(socket); // Call the handleConnection method
-    });
 
     server.listen(PORT, () => console.log(`Server running on port ${PORT} 🚀`));
 
