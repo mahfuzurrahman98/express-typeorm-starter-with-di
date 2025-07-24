@@ -5,7 +5,7 @@ import { RequestUser, TokenPayload } from '@/app/interfaces/auth.interface';
 import { User } from '@/app/entities/user.entity';
 import { UserService } from '@/app/services/user.service';
 import { CustomError } from '@/utils/custom-error';
-import { UserStatus } from '@/app/enums/user.enums';
+import { UserStatus } from '@/app/enums/user.enum';
 
 /**
  * Middleware to attach user to request
