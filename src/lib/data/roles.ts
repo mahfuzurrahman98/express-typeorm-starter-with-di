@@ -1,4 +1,4 @@
-import { UserRole } from '@/app/enums/user.enums';
+import { UserRole } from '@/app/enums/user.enum';
 
 // ADMIN > VENDOR > MANAGER > MEMBER
 export const rolePriority: Record<UserRole, number> = {
