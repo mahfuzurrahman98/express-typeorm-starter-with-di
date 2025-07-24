@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { RequestUser } from '@/app/interfaces/auth.interface';
-import { UserRole } from '@/app/enums/user.enums';
+import { UserRole } from '@/app/enums/user.enum';
 import { CustomError } from '@/utils/custom-error';
 
 /**
