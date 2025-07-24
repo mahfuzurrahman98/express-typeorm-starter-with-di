@@ -3,6 +3,11 @@ export interface SelectOption {
     label: string;
 }
 
+export interface CursorPagination {
+    cursor: string;
+    limit: number;
+}
+
 export interface CursorPaginationMeta {
     hasMore: boolean;
     nextCursor?: string;
