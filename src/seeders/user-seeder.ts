@@ -57,6 +57,6 @@ const seedUser = async () => {
     }
 };
 
-// seedAdminUser().catch((err) => {
-//     console.error('❌ Error seeding admin user:', err);
+// seedUser().catch((err) => {
+//     console.error('❌ Error seeding user:', err);
 // });
