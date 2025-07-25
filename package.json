@@ -1,7 +1,7 @@
 {
-    "name": "intoproject-backend",
+    "name": "express-starter",
     "version": "1.0.0",
-    "description": "intoproject backend API",
+    "description": "express-starter",
     "main": "src/index.ts",
     "scripts": {
         "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
@@ -13,7 +13,6 @@
         "seed": "cd src/seeders && ts-node",
         "migration:generate": "node scripts/migration-create.js",
         "migration:run": "npm run typeorm migration:run -- -d scripts/data-source.ts",
-        "migration:run:cli": "npm run typeorm migration:run -- -d scripts/data-source.ts",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "dependencies": {
