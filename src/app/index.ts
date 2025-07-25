@@ -13,7 +13,15 @@ const app: Express = express();
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://127.0.0.1:5173';
 
 // use middlewares
-app.use(cors({ origin: [FRONTEND_URL], credentials: true }));
+const allowedOrigins = [FRONTEND_URL];
+app.use(
+    cors({
+        origin: allowedOrigins,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
