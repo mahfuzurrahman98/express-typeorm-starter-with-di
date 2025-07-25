@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
-import { appDataSource } from '@/app/data-source';
+import { AppDataSource } from '@/app/data-source';
 import { Post } from '@/app/entities/post.entity';
 
 export class PostRepository extends Repository<Post> {
     constructor() {
-        super(Post, appDataSource.manager);
+        super(Post, AppDataSource.getInstance().manager);
     }
 }

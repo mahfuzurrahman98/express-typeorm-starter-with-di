@@ -5,6 +5,6 @@ if (!name) {
     console.error('Migration name required!');
     process.exit(1);
 }
-execSync(`npm run typeorm migration:generate -- src/migrations/${name} -d src/app/data-source.ts`, {
+execSync(`npm run typeorm migration:generate -- src/migrations/${name} -d scripts/data-source.ts`, {
     stdio: 'inherit',
 });

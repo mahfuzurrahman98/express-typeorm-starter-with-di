@@ -1,7 +1,7 @@
-import { createTransport, Transporter } from 'nodemailer';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import * as fs from 'fs/promises';
+import { createTransport, Transporter } from 'nodemailer';
 import { CustomError } from '@/utils/custom-error'; // import { CustomError }
 import { autoInjectable } from 'tsyringe';
 

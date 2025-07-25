@@ -1,10 +1,8 @@
 import { UserRole } from '@/app/enums/user.enum';
 
-// ADMIN > VENDOR > MANAGER > MEMBER
+// ADMIN > USER > GUEST
 export const rolePriority: Record<UserRole, number> = {
     [UserRole.ADMIN]: 100,
-    [UserRole.VENDOR]: 90,
-    [UserRole.MANAGER]: 80,
-    [UserRole.MEMBER]: 70,
+    [UserRole.USER]: 80,
     [UserRole.GUEST]: 60,
 };

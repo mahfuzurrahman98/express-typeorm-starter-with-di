@@ -10,13 +10,14 @@ config({ path: envPath });
 console.log('Database URL is set:', process.env.DATABASE_URL);
 
 // Import other dependencies after environment variables are loaded
-import { appDataSource } from '@/app/data-source';
+import { AppDataSource } from '@/app/data-source';
 import { User } from '@/app/entities/user.entity';
 import { faker } from '@faker-js/faker';
 import { hash } from 'bcrypt';
 import { UserRole, UserStatus } from '@/app/enums/user.enum';
 
 const seedUser = async () => {
+    const appDataSource = AppDataSource.getInstance();
     try {
         // Initialize the database connection
         await appDataSource.initialize();

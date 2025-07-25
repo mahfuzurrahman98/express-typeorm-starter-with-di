@@ -11,7 +11,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "test:m": "cd tests/manual && ts-node",
         "seed": "cd src/seeders && ts-node",
-        "migration:create": "node scripts/migration-create.js",
+        "migration:generate": "node scripts/migration-create.js",
+        "migration:run": "npm run typeorm migration:run -- -d scripts/data-source.ts",
+        "migration:run:cli": "npm run typeorm migration:run -- -d scripts/data-source.ts",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
     },
     "dependencies": {

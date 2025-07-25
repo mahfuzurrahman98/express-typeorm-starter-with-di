@@ -5,7 +5,7 @@ import { CreatePostRequestDTO, UpdatePostRequestDTO } from '@/app/dtos/post.dto'
 import { Post } from '@/app/entities/post.entity';
 import { CustomError } from '@/utils/custom-error';
 import { PostListQueryParams, PostList, PostWithDetails } from '@/app/interfaces/post.interface';
-import { CursorPagination, CursorPaginationMeta } from '../interfaces/common';
+import { CursorPaginationMeta } from '@/app/interfaces/common';
 
 @autoInjectable()
 export class PostService {

@@ -5,7 +5,7 @@ import path from 'path';
 import ejs from 'ejs';
 import http from 'http';
 import router from '@/app/routes';
-import { appDataSource } from '@/app/data-source';
+import { AppDataSource } from '@/app/data-source';
 import { CustomError } from '@/utils/custom-error';
 
 const app: Express = express();
@@ -39,6 +39,7 @@ app.set('views', viewsPath);
 
 export async function startServer(): Promise<Express> {
     try {
+        const appDataSource = AppDataSource.getInstance();
         await appDataSource.initialize();
         await appDataSource.query('SET TIME ZONE UTC');
     } catch (error: any) {

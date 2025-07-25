@@ -1,6 +1,6 @@
 import { CustomError } from '@/utils/custom-error';
 import { RequestUser } from '@/app/interfaces/auth.interface';
-import { appDataSource } from '@/app/data-source';
+import { AppDataSource } from '@/app/data-source';
 import { UserProfileSettingsRequestDTO } from '@/app/dtos/user.dto';
 import { UserSettings } from '@/app/interfaces/user.interface';
 import { autoInjectable } from 'tsyringe';
@@ -139,7 +139,7 @@ export class UserService {
         id: string,
         data: UserProfileSettingsRequestDTO,
     ): Promise<UserProfileSettingsRequestDTO> {
-        const queryRunner = appDataSource.createQueryRunner();
+        const queryRunner = AppDataSource.getInstance().createQueryRunner();
         await queryRunner.connect();
         await queryRunner.startTransaction();
 

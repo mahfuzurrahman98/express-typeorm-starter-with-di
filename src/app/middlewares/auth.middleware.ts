@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { TokenService } from '@/app/services/token.service';
-import { appDataSource } from '@/app/data-source';
+import { AppDataSource } from '@/app/data-source';
 import { RequestUser, TokenPayload } from '@/app/interfaces/auth.interface';
 import { User } from '@/app/entities/user.entity';
 import { UserService } from '@/app/services/user.service';
@@ -41,7 +41,7 @@ export async function attachUser(
             next(new CustomError(401, 'Unauthorized 11'));
         }
 
-        const userService = new UserService(appDataSource.getRepository<User>(User));
+        const userService = new UserService(AppDataSource.getInstance().getRepository<User>(User));
         const user: RequestUser | null = await userService.getUserById(decodedTokenPayload.user.id);
 
         request.user = user || undefined;
@@ -85,7 +85,7 @@ export async function requireAuth(
             throw new CustomError(401, 'Unauthorized 33');
         }
 
-        const userService = new UserService(appDataSource.getRepository<User>(User));
+        const userService = new UserService(AppDataSource.getInstance().getRepository<User>(User));
         const user: RequestUser | null = await userService.getUserById(decodedTokenPayload.user.id);
 
         if (!user) {
