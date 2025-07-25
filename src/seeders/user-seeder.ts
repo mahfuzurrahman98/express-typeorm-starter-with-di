@@ -33,7 +33,7 @@ const seedUser = async () => {
         user.id = faker.string.uuid();
         user.firstName = 'Towfique';
         user.lastName = 'Chowdhury';
-        user.email = 'admin@Intoproject.io';
+        user.email = 'user@test.io';
         user.password = await hash('Asdf@123#', 10);
         user.systemRole = UserRole.USER;
         user.status = UserStatus.ACTIVE;
